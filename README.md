@@ -1,12 +1,14 @@
-# ROS Dependency Bug Checkers
+# `.launch` Dependency Checker
 
+This checker validates that all `$(find <package-name>)` substitutions in all ROS `.launch` files of a package are declared in `package.xml`.
 
-Static bug checkers for [ROS](http://www.ros.org) packages developed as part of [SQUARE](https://github.com/itu-square) research at the IT University of Copenhagen.
+## Run
 
-All the bugs explored are dependency-related bugs, leading to run-time failures when the ROS packages are installed and executed. 
+- Install dependencies using `pip3 install -r requirements.txt`
+- Run `checker.py` with a path to a valid ROS package containing a `package.xml`.
 
-Find individual READMEs for checkers at:
+Example:
 
-- [`bash`](/bash-checker)
-- [`.launch`](/launch-checker)
-- [`python`](/python-checker)
+```bash
+./checker.py Examples/FULL/universal_robot/ur5_moveit_config/
+```
