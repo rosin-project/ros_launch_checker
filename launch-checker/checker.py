@@ -4,6 +4,7 @@ import os
 import sys
 from lxml import etree
 import re
+import argparse
 
 
 pip = list(map(lambda package: package.strip(), open(
@@ -94,16 +95,18 @@ def print_errors(errors):
         print("\nMissing dependencies:")
         for (error, launch_file, package) in errors:
             print(
-                f"\t'{error}' found in '{launch_file}' \n\tis missing in '{package}'\n")
+                f"- {error} \n    found in:      `{launch_file}` \n    is missing in: `{package}`\n")
+        print(f"{len(errors)} error(s) found")
     else:
         print("No errors found.")
 
 
-if len(sys.argv) < 1:
-    print("No package path given. Please supply a valid package path as a parameter.")
-
 if __name__ == "__main__":
-    path = sys.argv[1]
-    print(f"Checking .launch files in {path} for undeclared dependencies...")
-    errors = find_launch_dependencies(sys.argv[1])
+    parser = argparse.ArgumentParser(description="Checks a package path for undeclared dependencies")
+    parser.add_argument("path", help="the path of the package")
+    args = parser.parse_args()
+    path = args.path
+
+    print(f"Checking launch files in `{path}` for undeclared dependencies...")
+    errors = find_launch_dependencies(path)
     print_errors(errors)
