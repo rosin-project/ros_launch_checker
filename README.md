@@ -5,10 +5,10 @@ This checker validates that all `$(find <package-name>)` substitutions in all RO
 ## Run
 
 - Install dependencies using `pip3 install -r requirements.txt`
-- Run `checker.py` with a path to a valid ROS package containing a `package.xml`.
+- Run `ros_launch_checker.py` with a path to a valid ROS package containing a `package.xml`.
 
 Example:
 
 ```bash
-./checker.py Examples/FULL/universal_robot/ur5_moveit_config/
+./ros_launch_checker.py Examples/FULL/universal_robot/ur5_moveit_config/
 ```
