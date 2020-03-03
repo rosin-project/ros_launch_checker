@@ -10,5 +10,5 @@ This checker validates that all `$(find <package-name>)` substitutions in all RO
 Example:
 
 ```bash
-./ros_launch_checker.py Examples/FULL/universal_robot/ur5_moveit_config/
+./ros_launch_checker.py Examples/FULL/universal_robot/
 ```
