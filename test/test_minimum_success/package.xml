@@ -1,0 +1,4 @@
+<package>
+  <run_depend>p1</run_depend>
+  <run_depend>p2</run_depend>
+</package>

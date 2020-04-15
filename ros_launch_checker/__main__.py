@@ -7,9 +7,11 @@ from colorama import Fore, Style
 from lxml import etree
 
 pip = list(map(lambda package: package.strip(), open(
-    'ros_launch_checker/built-in_pip_packages.txt', 'r').readlines()))
+    os.path.dirname(os.path.abspath(__file__)) +
+    '/built-in_pip_packages.txt', 'r').readlines()))
 rospack = list(map(lambda package: package.strip(), open(
-    'ros_launch_checker/built-in_rospack_packages.txt', 'r').readlines()))
+    os.path.dirname(os.path.abspath(__file__)) +
+    '/built-in_rospack_packages.txt', 'r').readlines()))
 
 
 def find_launch_dependencies(path):
