@@ -1,6 +1,4 @@
-bash-checker/Examples/rosdistro
-python-checker/Examples/rosdistro
-launch-checker/Examples/rosdistro
+.idea/
 *.vscode
 .DS_Store
 *.DS_Store

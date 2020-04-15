@@ -1,16 +1,15 @@
-#!/usr/bin/env python3
-
-import os
-import sys
-from lxml import etree
-import re
+#!/usr/bin/python3
 import argparse
+import os
+import re
 
+from colorama import Fore, Style
+from lxml import etree
 
 pip = list(map(lambda package: package.strip(), open(
-    'built-in_pip_packages.txt', 'r').readlines()))
+    'ros_launch_checker/built-in_pip_packages.txt', 'r').readlines()))
 rospack = list(map(lambda package: package.strip(), open(
-    'built-in_rospack_packages.txt', 'r').readlines()))
+    'ros_launch_checker/built-in_rospack_packages.txt', 'r').readlines()))
 
 
 def find_launch_dependencies(path):
@@ -43,9 +42,9 @@ def check_finds(elements, package, packages, path):
             continue
         dependency = match[2]
         package_dependencies = parse_package(package)
-        if (not exists_in_workspace(dependency, packages) and dependency not in package_dependencies and dependency not in pip and dependency not in rospack):
-            errors.add(
-                (dependency, path.strip(), package.strip()))
+        if (not exists_in_workspace(dependency,
+                                    packages) and dependency not in package_dependencies and dependency not in pip and dependency not in rospack):
+            errors.add((dependency, path.strip(), package.strip()))
 
     return errors
 
@@ -94,11 +93,15 @@ def print_errors(errors):
     if (errors):
         print("\nMissing dependencies:")
         for (error, launch_file, package) in errors:
-            print(
-                f"- {error} \n    found in:      `{launch_file}` \n    is missing in: `{package}`\n")
-        print(f"{len(errors)} error(s) found")
+            print(f"\n- {Style.BRIGHT}{Fore.RED}{error}{Style.RESET_ALL}")
+            print(f"\tfound in {launch_file}")
+            print(f"\tis missing in {package}")
+
+    if errors:
+        error_message = Fore.RED + str(len(errors)) + " error(s) found"
     else:
-        print("No errors found.")
+        error_message = Fore.GREEN + "No errors found"
+    print(Style.BRIGHT + error_message + Style.RESET_ALL)
 
 
 if __name__ == "__main__":
@@ -107,6 +110,6 @@ if __name__ == "__main__":
     args = parser.parse_args()
     path = args.path
 
-    print(f"Checking launch files in `{path}` for undeclared dependencies...")
+    print(f"Checking {path}")
     errors = find_launch_dependencies(path)
     print_errors(errors)
